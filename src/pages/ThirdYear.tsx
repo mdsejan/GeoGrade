@@ -22,12 +22,25 @@ const ThirdYear = () => {
 
   const [gpa, setGpa] = useState<number | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const [showWarning, setShowWarning] = useState(false); // New state for warning
 
   const handleGradeChange = (subjectName: string, gradePoint: number) => {
     dispatch(setGrade({ subjectName, gradePoint }));
   };
 
   const calculateGPA = () => {
+    const allGradesSelected = subjects.every(
+      (subject) => subject.gradePoint !== 0 || null
+    );
+
+    console.log(allGradesSelected, subjects);
+
+    if (!allGradesSelected) {
+      // Show warning if not all grades are selected
+      setShowWarning(true);
+      return;
+    }
+
     const totalCredits = subjects.reduce(
       (sum: number, subject: { credit: number }) => sum + subject.credit,
       0
@@ -52,14 +65,14 @@ const ThirdYear = () => {
 
   return (
     <div className="p-4">
-      <h2 className="text-3xl  font-bold my-12 text-[#FEE68C] text-center">
+      <h2 className="text-3xl font-bold my-12 text-[#FEE68C] text-center">
         Third Year Result
       </h2>
       <div className="grid gap-4">
         {subjects.map((subject) => (
           <div
             key={subject.name}
-            className="p-4 bg-[#131313] shadow-lg rounded-lg "
+            className="p-4 bg-[#131313] shadow-lg rounded-lg"
           >
             <h3 className="text-xl font-semibold text-gray-100">
               {subject.name}
@@ -84,7 +97,7 @@ const ThirdYear = () => {
         ))}
       </div>
 
-      <div className="flex justify-center gap-4 items-center mt-12  mb-24">
+      <div className="flex justify-center gap-4 items-center mt-12 mb-24">
         <button
           onClick={calculateGPA}
           className="bg-[#E2E2E2] text-blue-500 font-semibold px-4 py-2 rounded-md hover:bg-white transition"
@@ -99,6 +112,7 @@ const ThirdYear = () => {
         </button>
       </div>
 
+      {/* Modal for displaying GPA */}
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
           <div className="bg-[#131313] w-5/6 p-10 rounded-lg shadow-lg text-white text-center">
@@ -107,6 +121,24 @@ const ThirdYear = () => {
             <button
               onClick={() => setShowModal(false)}
               className="mt-4 w-5/6 mx-auto font-semibold bg-[#E2E2E2] text-[#E25478] px-4 py-2 rounded-md hover:bg-white"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Warning Popup if grades are not selected */}
+      {showWarning && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+          <div className="bg-[#131313] w-5/6 p-8 rounded-lg shadow-lg text-center text-white">
+            <h3 className="text-2xl font-bold mb-6">Warning</h3>
+            <p className="text-xl text-red-500 mb-6">
+              Please select grades for all subjects before calculating GPA.
+            </p>
+            <button
+              onClick={() => setShowWarning(false)}
+              className="w-5/6 mx-auto font-semibold bg-[#E2E2E2] text-[#E25478] px-4 py-2 rounded-md hover:bg-white"
             >
               Close
             </button>
