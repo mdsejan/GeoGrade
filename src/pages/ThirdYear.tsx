@@ -115,7 +115,7 @@ const ThirdYear = () => {
       {/* Modal for displaying GPA */}
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-          <div className="bg-[#131313] w-5/6 p-10 rounded-lg shadow-lg text-white text-center">
+          <div className="bg-[#131313] w-5/6 lg:w-2/6 p-10 rounded-lg shadow-lg text-white text-center">
             <h3 className="text-2xl font-bold mb-6">Your GPA</h3>
             <p className="text-4xl text-green-400 mb-10">{gpa?.toFixed(2)}</p>
             <button
@@ -131,7 +131,7 @@ const ThirdYear = () => {
       {/* Warning Popup if grades are not selected */}
       {showWarning && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-          <div className="bg-[#131313] w-5/6 p-8 rounded-lg shadow-lg text-center text-white">
+          <div className="bg-[#131313] w-5/6 lg:w-2/6 p-8 rounded-lg shadow-lg text-center text-white">
             <h3 className="text-2xl font-bold mb-6">Warning</h3>
             <p className="text-xl text-red-500 mb-6">
               Please select grades for all subjects before calculating GPA.
