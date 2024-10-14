@@ -20,7 +20,7 @@ const Home = () => (
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     transition={{ duration: 0.5 }}
-    className="flex flex-col items-center justify-center h-full max-h-screen overflow-hidden p-4 bg-body"
+    className="flex flex-col items-center justify-center  max-h-screen  p-4 bg-body"
   >
     <div className="text-center my-12">
       <h1 className="text-3xl font-semibold">
