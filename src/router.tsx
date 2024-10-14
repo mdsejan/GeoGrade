@@ -4,8 +4,8 @@ import MainLayout from "./Layouts/MainLayout";
 import NotFound from "./components/NotFound";
 import FirstYear from "./pages/FirstYear";
 import SecoundYear from "./pages/SecoundYear";
-import ThirdYear from "./pages/ThirdYear";
 import FourthYear from "./pages/FourthYear";
+import ThirdYear from "./pages/ThirdYear";
 
 const router = createBrowserRouter([
   {

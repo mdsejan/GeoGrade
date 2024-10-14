@@ -2,15 +2,15 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const buttonVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 10 },
   visible: (index: number) => ({
     opacity: 1,
     y: 0,
     transition: {
       delay: index * 0.6,
       type: "spring",
-      stiffness: 300,
-      damping: 70,
+      stiffness: 100,
+      damping: 20,
     },
   }),
 };
@@ -27,7 +27,7 @@ const Home = () => (
         Geo<span className="text-[#FEE68C]">Grade</span>{" "}
       </h1>
       <h3 className="text-base font-normal">
-        calculateyour results in a simple way
+        calculate your results in a simple way
       </h3>
     </div>
     <h2 className="text-2xl font-bold mb-6 text-text">Select a Year</h2>

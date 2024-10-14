@@ -3,7 +3,7 @@ import resultReducer from "./features/resultSlice";
 
 export const store = configureStore({
   reducer: {
-    counter: resultReducer,
+    result: resultReducer,
   },
 });
 
