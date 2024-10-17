@@ -14,6 +14,7 @@ const Footer = () => {
             ? "bg-[#FEE68C] text-[#000]"
             : "bg-[#1A1A1A] text-[#FFFFFF]"
         }`}
+        aria-label="Homepage"
       >
         <FaHome size={16} />
       </Link>
@@ -24,6 +25,7 @@ const Footer = () => {
             ? "bg-[#FEE68C] text-[#000]"
             : "bg-[#1A1A1A] text-[#FFFFFF]"
         }`}
+        aria-label="first year"
       >
         <MdLooksOne size={16} />
       </Link>
@@ -34,6 +36,7 @@ const Footer = () => {
             ? "bg-[#FEE68C] text-[#000]"
             : "bg-[#1A1A1A] text-[#FFFFFF]"
         }`}
+        aria-label="secound year"
       >
         <MdLooksTwo size={16} />
       </Link>
@@ -44,6 +47,7 @@ const Footer = () => {
             ? "bg-[#FEE68C] text-[#000]"
             : "bg-[#1A1A1A] text-[#FFFFFF]"
         }`}
+        aria-label="third year"
       >
         <MdLooks3 size={16} />
       </Link>
@@ -54,6 +58,7 @@ const Footer = () => {
             ? "bg-[#FEE68C] text-[#000]"
             : "bg-[#1A1A1A] text-[#FFFFFF]"
         }`}
+        aria-label="fourt year"
       >
         <MdLooks4 size={16} />
       </Link>

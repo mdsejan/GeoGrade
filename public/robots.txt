@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /service-worker.js
+Disallow: /dev-sw.js
+Allow: /
+
+Sitemap: https://geograde.netlify.app/sitemap.xml
