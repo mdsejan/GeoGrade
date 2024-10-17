@@ -4,16 +4,16 @@ import { RootState } from "../redux/store";
 import { setGrade } from "../redux/features/resultSlice";
 
 const gradeOptions = [
-  { label: "A+ (Plus)", value: 4.0 },
-  { label: "A (Plain)", value: 3.75 },
-  { label: "A- (Minus)", value: 3.5 },
-  { label: "B+ (Plus)", value: 3.25 },
-  { label: "B (Plain)", value: 3.0 },
-  { label: "B- (Minus)", value: 2.75 },
-  { label: "C+ (Plus)", value: 2.5 },
-  { label: "C (Plain)", value: 2.25 },
-  { label: "D (Plain)", value: 2.0 },
-  { label: "F (Fail)", value: 0.0 },
+  { label: "A+", value: 4.0 },
+  { label: "A", value: 3.75 },
+  { label: "A-", value: 3.5 },
+  { label: "B+", value: 3.25 },
+  { label: "B", value: 3.0 },
+  { label: "B-", value: 2.75 },
+  { label: "C+", value: 2.5 },
+  { label: "C", value: 2.25 },
+  { label: "D", value: 2.0 },
+  { label: "F", value: 0.0 },
 ];
 
 const ThirdYear = () => {
@@ -32,8 +32,6 @@ const ThirdYear = () => {
     const allGradesSelected = subjects.every(
       (subject) => subject.gradePoint !== 0 || null
     );
-
-    console.log(allGradesSelected, subjects);
 
     if (!allGradesSelected) {
       // Show warning if not all grades are selected
