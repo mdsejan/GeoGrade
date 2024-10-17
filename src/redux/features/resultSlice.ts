@@ -10,8 +10,8 @@ interface ResultState {
   subjects: Subject[];
 }
 
-const initialState: ResultState = {
-  subjects: [
+const initialSubjects = {
+  thirdYear: [
     { name: "Environmental Geography", credit: 4, gradePoint: 0 },
     { name: "Soil and Biogeography", credit: 4, gradePoint: 0 },
     { name: "Geography of Bangladesh", credit: 4, gradePoint: 0 },
@@ -21,11 +21,25 @@ const initialState: ResultState = {
     { name: "Quantitative Geography", credit: 4, gradePoint: 0 },
     { name: "Practical - III", credit: 4, gradePoint: 0 },
   ],
+  fourthYear: [
+    { name: "Geographical Thoughts and Concepts", credit: 4, gradePoint: 0 },
+    { name: "Oceanography", credit: 4, gradePoint: 0 },
+    { name: "Geography of Disasters", credit: 4, gradePoint: 0 },
+    { name: "Political Geography", credit: 4, gradePoint: 0 },
+    { name: "Agricultural Geography", credit: 4, gradePoint: 0 },
+    { name: "Geography of South Asia", credit: 4, gradePoint: 0 },
+    { name: "Urban Geography", credit: 4, gradePoint: 0 },
+    { name: "Principles of Remote Sensing and GIS", credit: 4, gradePoint: 0 },
+    { name: "Practical-IV", credit: 4, gradePoint: 0 },
+    { name: "Vīva-voce", credit: 4, gradePoint: 0 },
+  ],
 };
 
 const resultSlice = createSlice({
   name: "result",
-  initialState,
+  initialState: {
+    subjects: initialSubjects.thirdYear, // Default to third year
+  } as ResultState,
   reducers: {
     setGrade: (
       state,
@@ -38,8 +52,14 @@ const resultSlice = createSlice({
         subject.gradePoint = action.payload.gradePoint;
       }
     },
+    setYearSubjects: (
+      state,
+      action: PayloadAction<"thirdYear" | "fourthYear">
+    ) => {
+      state.subjects = initialSubjects[action.payload];
+    },
   },
 });
 
-export const { setGrade } = resultSlice.actions;
+export const { setGrade, setYearSubjects } = resultSlice.actions;
 export default resultSlice.reducer;

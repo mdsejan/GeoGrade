@@ -1,20 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { RootState } from "../redux/store";
-import { setGrade } from "../redux/features/resultSlice";
-
-const gradeOptions = [
-  { label: "A+", value: 4.0 },
-  { label: "A", value: 3.75 },
-  { label: "A-", value: 3.5 },
-  { label: "B+", value: 3.25 },
-  { label: "B", value: 3.0 },
-  { label: "B-", value: 2.75 },
-  { label: "C+", value: 2.5 },
-  { label: "C", value: 2.25 },
-  { label: "D", value: 2.0 },
-  { label: "F", value: 0.0 },
-];
+import { setGrade, setYearSubjects } from "../redux/features/resultSlice";
+import { gradeOptions } from "../utils/constants";
 
 const ThirdYear = () => {
   const dispatch = useAppDispatch();
@@ -22,7 +10,11 @@ const ThirdYear = () => {
 
   const [gpa, setGpa] = useState<number | null>(null);
   const [showModal, setShowModal] = useState(false);
-  const [showWarning, setShowWarning] = useState(false); // New state for warning
+  const [showWarning, setShowWarning] = useState(false);
+
+  useEffect(() => {
+    dispatch(setYearSubjects("thirdYear")); // Set third-year subjects
+  }, [dispatch]);
 
   const handleGradeChange = (subjectName: string, gradePoint: number) => {
     dispatch(setGrade({ subjectName, gradePoint }));
@@ -30,22 +22,20 @@ const ThirdYear = () => {
 
   const calculateGPA = () => {
     const allGradesSelected = subjects.every(
-      (subject) => subject.gradePoint !== 0 || null
+      (subject) => subject.gradePoint !== 0
     );
 
     if (!allGradesSelected) {
-      // Show warning if not all grades are selected
       setShowWarning(true);
       return;
     }
 
     const totalCredits = subjects.reduce(
-      (sum: number, subject: { credit: number }) => sum + subject.credit,
+      (sum, subject) => sum + subject.credit,
       0
     );
     const totalPoints = subjects.reduce(
-      (sum: number, subject: { credit: number; gradePoint: number }) =>
-        sum + subject.credit * subject.gradePoint,
+      (sum, subject) => sum + subject.credit * subject.gradePoint,
       0
     );
     const calculatedGpa = totalPoints / totalCredits;
