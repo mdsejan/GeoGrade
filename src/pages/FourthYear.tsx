@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { RootState } from "../redux/store";
 import { setGrade, setYearSubjects } from "../redux/features/resultSlice";
-import { gradeOptions } from "../utils/constants";
+import SubjectCard from "../components/SubjectCard";
+import GPAModal from "../components/GPAModal";
+import WarningModal from "../components/WarningModal";
 
 const FourthYear = () => {
   const dispatch = useAppDispatch();
@@ -13,7 +15,7 @@ const FourthYear = () => {
   const [showWarning, setShowWarning] = useState(false);
 
   useEffect(() => {
-    dispatch(setYearSubjects("fourthYear")); // Set third-year subjects
+    dispatch(setYearSubjects("fourthYear")); // Set Fourth-year subjects
   }, [dispatch]);
 
   const handleGradeChange = (subjectName: string, gradePoint: number) => {
@@ -58,30 +60,13 @@ const FourthYear = () => {
       </h2>
       <div className="grid gap-4">
         {subjects.map((subject) => (
-          <div
+          <SubjectCard
             key={subject.name}
-            className="p-4 bg-[#131313] shadow-lg rounded-lg"
-          >
-            <h3 className="text-xl font-semibold text-gray-100">
-              {subject.name}
-            </h3>
-            <div className="mt-2 text-gray-500">Mark: 100</div>
-            <div className="mt-1 text-gray-500">Credit: {subject.credit}</div>
-            <select
-              onChange={(e) =>
-                handleGradeChange(subject.name, parseFloat(e.target.value))
-              }
-              className="mt-2 p-2 rounded-md w-2/3 bg-[#1A1A1A] text-gray-200 focus:outline-none"
-              value={subject.gradePoint || ""}
-            >
-              <option value="">Select Grade</option>
-              {gradeOptions.map((option) => (
-                <option key={option.label} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
+            subjectName={subject.name}
+            credit={subject.credit}
+            gradePoint={subject.gradePoint}
+            handleGradeChange={handleGradeChange}
+          />
         ))}
       </div>
 
@@ -101,38 +86,10 @@ const FourthYear = () => {
       </div>
 
       {/* Modal for displaying GPA */}
-      {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-          <div className="bg-[#131313] w-5/6 lg:w-2/6 p-10 rounded-lg shadow-lg text-white text-center">
-            <h3 className="text-2xl font-bold mb-6">Your GPA</h3>
-            <p className="text-4xl text-green-400 mb-10">{gpa?.toFixed(2)}</p>
-            <button
-              onClick={() => setShowModal(false)}
-              className="mt-4 w-5/6 mx-auto font-semibold bg-[#E2E2E2] text-[#E25478] px-4 py-2 rounded-md hover:bg-white"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
+      {showModal && <GPAModal gpa={gpa} onClose={() => setShowModal(false)} />}
 
       {/* Warning Popup if grades are not selected */}
-      {showWarning && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-          <div className="bg-[#131313] w-5/6 lg:w-2/6 p-8 rounded-lg shadow-lg text-center text-white">
-            <h3 className="text-2xl font-bold mb-6">Warning</h3>
-            <p className="text-xl text-red-500 mb-6">
-              Please select grades for all subjects before calculating GPA.
-            </p>
-            <button
-              onClick={() => setShowWarning(false)}
-              className="w-5/6 mx-auto font-semibold bg-[#E2E2E2] text-[#E25478] px-4 py-2 rounded-md hover:bg-white"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
+      {showWarning && <WarningModal onClose={() => setShowWarning(false)} />}
     </div>
   );
 };
