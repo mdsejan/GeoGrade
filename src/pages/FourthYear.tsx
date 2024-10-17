@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { RootState } from "../redux/store";
 import { setGrade, setYearSubjects } from "../redux/features/resultSlice";
-import { gradeOptions } from "../utils/constants";
+import SubjectCard from "../components/SubjectCard";
 
 const FourthYear = () => {
   const dispatch = useAppDispatch();
@@ -58,30 +58,13 @@ const FourthYear = () => {
       </h2>
       <div className="grid gap-4">
         {subjects.map((subject) => (
-          <div
+          <SubjectCard
             key={subject.name}
-            className="p-4 bg-[#131313] shadow-lg rounded-lg"
-          >
-            <h3 className="text-xl font-semibold text-gray-100">
-              {subject.name}
-            </h3>
-            <div className="mt-2 text-gray-500">Mark: 100</div>
-            <div className="mt-1 text-gray-500">Credit: {subject.credit}</div>
-            <select
-              onChange={(e) =>
-                handleGradeChange(subject.name, parseFloat(e.target.value))
-              }
-              className="mt-2 p-2 rounded-md w-2/3 bg-[#1A1A1A] text-gray-200 focus:outline-none"
-              value={subject.gradePoint || ""}
-            >
-              <option value="">Select Grade</option>
-              {gradeOptions.map((option) => (
-                <option key={option.label} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
+            subjectName={subject.name}
+            credit={subject.credit}
+            gradePoint={subject.gradePoint}
+            handleGradeChange={handleGradeChange}
+          />
         ))}
       </div>
 
